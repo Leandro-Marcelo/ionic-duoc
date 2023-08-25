@@ -1,21 +1,20 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import {MatBadgeModule} from '@angular/material/badge';
 
 import { IonicModule } from '@ionic/angular';
 
-import { LoginPageRoutingModule } from './login-routing.module';
+import { NotfoundPageRoutingModule } from './notfound-routing.module';
 
-import { LoginPage } from './login.page';
+import { NotfoundPage } from './notfound.page';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    LoginPageRoutingModule
+    NotfoundPageRoutingModule
   ],
-  declarations: [LoginPage]
+  declarations: [NotfoundPage]
 })
-export class LoginPageModule {}
+export class NotfoundPageModule {}

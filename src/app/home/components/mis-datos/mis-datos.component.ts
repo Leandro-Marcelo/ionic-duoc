@@ -1,9 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AlertController } from '@ionic/angular';
-import { CertificacionesComponent } from './components/certificaciones/certificaciones.component';
-import { createAnimation } from '@ionic/core';
-
 
 interface EducationLevel {
   id: number;
@@ -18,11 +15,12 @@ interface UserInfo {
 }
 
 @Component({
-  selector: 'app-home',
-  templateUrl: 'home.page.html',
-  styleUrls: ['home.page.scss'],
+  selector: 'app-mis-datos',
+  templateUrl: './mis-datos.component.html',
+  styleUrls: ['./mis-datos.component.scss'],
 })
-export class HomePage {
+export class MisDatosComponent  implements OnInit {
+
   educationLevels:EducationLevel[]=[
     {id:1, name:"Primaria Incompleta"},
     {id:2, name:"Primaria Completa"},
@@ -45,17 +43,10 @@ export class HomePage {
   constructor(public alertController: AlertController, private route: ActivatedRoute) {
   }
 
-  selectedSegment: string = 'experiencia-laboral';
-
-  // segmentChanged(event) {
-  //   // ... tu código aquí ...
-  
-  //   this.titleAnimation();
-  // }
+  selectedSegment: string = 'mis-datos';
 
 segmentChanged(event: any) {
   this.selectedSegment = event.detail.value;
-  
 }
 
   ngOnInit() {
@@ -86,4 +77,5 @@ segmentChanged(event: any) {
 
     await alert.present();
   }
+
 }

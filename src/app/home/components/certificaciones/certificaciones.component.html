@@ -1,0 +1,36 @@
+<ion-title class="ion-padding-top ion-text-center">
+    <ion-label>
+      <h1>Bienvenido!</h1>
+    </ion-label>
+  </ion-title>
+  <!-- <div *ngIf="username" class="">Usuario: {{username}}</div> -->
+  <!-- <b class="" >
+    <h4></h4>
+  </b> -->
+
+  <!-- <div id="title-l">
+    Certificaciones
+  </div> -->
+
+  <ion-content>
+    <h1 id="title-l" class="title">Título de la página</h1>
+  </ion-content>
+
+<div class="container">
+  <ion-item class="mb-4">
+      <ion-label>Nombre del Certificado</ion-label>
+      <ion-input type="text" [(ngModel)]="certification.name"></ion-input>
+  </ion-item>
+  <ion-item class="mb-4">
+      <ion-label>Fecha de Obtención</ion-label>
+      <ion-input type="date" [(ngModel)]="certification.obtainmentDate"></ion-input>
+  </ion-item>
+  <ion-item class="mb-4">
+      <ion-label>¿El certificado vence?</ion-label>
+      <ion-checkbox [(ngModel)]="certification.expires"></ion-checkbox>
+  </ion-item>
+  <ion-item *ngIf="certification.expires" class="mb-4">
+      <ion-label>Fecha de Vencimiento</ion-label>
+      <ion-input type="date" [(ngModel)]="certification.expiryDate"></ion-input>
+  </ion-item>
+</div>

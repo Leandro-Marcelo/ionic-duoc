@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NavController, ToastController } from '@ionic/angular';
 import { z } from 'zod';
+import { AuthService } from '../auth.service';
 
 const loginSchema = z.object({
   username: z.string().min(3).max(8),
@@ -19,19 +20,27 @@ interface LoginForm {
 })
 export class LoginPage implements OnInit {
   loginForm: LoginForm = {
-    username: '',
-    password: '',
+    username: 'lean',
+    password: '1234',
   };
 
-  constructor(public toastController: ToastController, private navCtrl: NavController) {}
+  isAuthenticated = ""
 
-  ngOnInit() {}
+  constructor(public toastController: ToastController, private navCtrl: NavController, private authService: AuthService ) {}
+
+  ngOnInit() {
+    this.isAuthenticated = this.authService.isLoggedIn ? "true" : "false"
+  }
 
   login() {
     try {
       const validatedData = loginSchema.parse(this.loginForm);
       console.log(validatedData)
       this.presentToast('Welcome');
+
+      this.authService.login();
+
+
 
       this.navCtrl.navigateForward('/home', {
         queryParams: {

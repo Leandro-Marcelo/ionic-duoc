@@ -9,7 +9,7 @@
     <ion-card class="ion-text-center">
       <ion-card-title class="ion-text-center">
         <ion-label>
-          <h2>Bienvenido!</h2>
+          <h2>Bienvenido! {{isAuthenticated}}</h2>
         </ion-label>
       </ion-card-title>
       <ion-card-content>
@@ -24,7 +24,9 @@
       </ion-card-content>
       <ion-button shape="block" (click)="login()">Ingresar</ion-button>
     </ion-card>
-    <div class="text-center">Crea tu cuenta gratis</div>
+    <div class="text-center">
+      <a>Crea tu cuenta gratis</a>
+    </div>
   </div>
   
 </ion-content>

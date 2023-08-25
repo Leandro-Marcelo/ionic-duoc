@@ -1,0 +1,32 @@
+<ion-title class="ion-padding-top ion-text-center">
+    <ion-label>
+      <h1>Bienvenido!</h1>
+    </ion-label>
+  </ion-title>
+  <!-- <div *ngIf="username" class="">Usuario: {{username}}</div> -->
+  <b class="" id="title-l" (click)="runAnimation()">
+    <h4>Experiencia Laboral</h4>
+  </b>
+
+<div class="reset">
+  <ion-item class="mb-4">
+      <ion-label>Compañia</ion-label>
+      <ion-input type="text" [(ngModel)]="experience.company"></ion-input>
+  </ion-item>
+  <ion-item class="mb-4">
+      <ion-label>Año de inicio</ion-label>
+      <ion-input type="text" [(ngModel)]="experience.startYear"></ion-input>
+  </ion-item>
+  <ion-item class="mb-4">
+      <ion-label>Estás actualmente trabajando aquí?</ion-label>
+      <ion-checkbox [(ngModel)]="experience.currentlyWorking"></ion-checkbox>
+  </ion-item>
+  <ion-item *ngIf="!experience.currentlyWorking" class="mb-4">
+      <ion-label>Año de termino</ion-label>
+      <ion-input type="text" [(ngModel)]="experience.endYear"></ion-input>
+  </ion-item>
+  <ion-item>
+      <ion-label>Posición</ion-label>
+      <ion-input type="text" [(ngModel)]="experience.position"></ion-input>
+  </ion-item>
+</div>

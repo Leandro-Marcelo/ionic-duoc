@@ -1,66 +1,19 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      SkeletonAPP
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
+<div>
+  <ion-segment (ionChange)="segmentChanged($event)">
+    <ion-segment-button value="mis-datos"> Mis Datos </ion-segment-button>
+    <ion-segment-button value="experiencia-laboral">
+      Experiencia Laboral
+    </ion-segment-button>
+    <ion-segment-button value="certificaciones">
+      Certificaciones
+    </ion-segment-button>
+  </ion-segment>
 
-<ion-content [fullscreen]="true" class="ion-padding-horizontal">
-  <ion-title class="ion-padding-top ion-text-center">
-    <ion-label>
-      <h1>Bienvenido!</h1>
-    </ion-label>
-  </ion-title>
-  <div *ngIf="username" class="">Usuario: {{username}}</div>
-  <b class="ion-text-center">
-    <h4>Información Adicional</h4>
-  </b>
-
-  <ion-item class="mb-4">
-    <ion-label>Nombre</ion-label>
-    <ion-input type="text" [(ngModel)]="userInfo.name"></ion-input>
-  </ion-item>
-
-  <ion-item class="mb-4">
-    <ion-label>Apellido</ion-label>
-    <ion-input type="text" [(ngModel)]="userInfo.lastname"></ion-input>
-  </ion-item>
-
-  <ion-item class="mb-4">
-    <ion-label>Nivel educación</ion-label>
-    <ion-select placeholder="Seleccione nivel" [(ngModel)]="userInfo.education">
-      <ion-select-option *ngFor="let educationLevel of educationLevels" [value]="educationLevel.id">{{educationLevel.name}}</ion-select-option>
-    </ion-select>
-  </ion-item>
-
-  <ion-item class="mb-4">
-    <ion-label>Fecha Nacimiento</ion-label>
-    <ion-input type="date" [(ngModel)]="userInfo.birthday"></ion-input>
-  </ion-item>
-
-
-  <ion-grid>
-    <ion-row>
-      <ion-col col-6>
-        <ion-button shape="block" (click)="clear()">
-          Limpiar
-        </ion-button>
-      </ion-col>
-      <ion-col col-6>
-        <ion-button shape="block" (click)="showFullname()">
-          Mostrar
-        </ion-button>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
-</ion-content>
-
-<ion-footer>
-  <ion-toolbar>
-    <ion-label class="ion-padding-start">
-      App desarrollada por Leandro Marcelo
-    </ion-label>
-  </ion-toolbar>
-</ion-footer>
-
+  <app-mis-datos *ngIf="selectedSegment === 'mis-datos'"></app-mis-datos>
+  <app-experiencia-laboral
+    *ngIf="selectedSegment === 'experiencia-laboral'"
+  ></app-experiencia-laboral>
+  <app-certificaciones
+    *ngIf="selectedSegment === 'certificaciones'"
+  ></app-certificaciones>
+</div>
