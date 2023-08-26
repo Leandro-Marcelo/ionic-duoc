@@ -48,20 +48,20 @@ export class CertificacionesComponent  implements OnInit {
   //   titleAnimation.play();
   // }
 
-  // animateTitle() {
-  //   const titleElement = document.getElementById("title-l")!
+  animateTitle() {
+    const titleElement = document.getElementById("title-l")!
 
-  //   const animation: Animation = this.animationCtrl
-  //     .create()
-  //     .addElement(titleElement)
-  //     .duration(1000)
-  //     .iterations(Infinity)
-  //     .fromTo('transform', 'translateX(0)', 'translateX(50%)')
-  //     .fromTo('opacity', 1, 0.2)
-  //     .afterStyles({ 'transform': 'translateX(0)', 'opacity': 1 });
+    const animation: Animation = this.animationCtrl
+      .create()
+      .addElement(titleElement)
+      .duration(1000)
+      .iterations(Infinity)
+      .fromTo('transform', 'translateX(-25%)', 'translateX(70%)')
+      .fromTo('opacity', 1, 0.2)
+      .afterStyles({ 'transform': 'translateX(0)', 'opacity': 1 });
 
-  //   animation.play();
-  // }
+    animation.play();
+  }
   
   // animateTitle() {
   //   const titleElement = document.getElementById("title-l")!
@@ -83,22 +83,22 @@ export class CertificacionesComponent  implements OnInit {
   //   titleAnimation.play();
   // }
 
-  animateTitle() {
-    const titleElement = document.getElementById("title-l")!
+  // animateTitle() {
+  //   const titleElement = document.getElementById("title-l")!
 
-    const titleAnimation = this.animationCtrl.create()
-      .addElement(titleElement) // Ajusta el selector según tu estructura HTML
-      .duration(2500)
-      .iterations(Infinity);
+  //   const titleAnimation = this.animationCtrl.create()
+  //     .addElement(titleElement) // Ajusta el selector según tu estructura HTML
+  //     .duration(2500)
+  //     .iterations(Infinity);
 
-    titleAnimation
-      .keyframes([
-        { offset: 0, transform: 'translateX(-50%)', opacity: 1 },
-        { offset: 1, transform: 'translateX(25%)', opacity: 1 },
-      ]);
+  //   titleAnimation
+  //     .keyframes([
+  //       { offset: 0, transform: 'translateX(-50%)', opacity: 1 },
+  //       { offset: 1, transform: 'translateX(25%)', opacity: 1 },
+  //     ]);
 
-    titleAnimation.play();
-  }
+  //   titleAnimation.play();
+  // }
 
   animateInput(elementId: string) {
     const inputEl = document.getElementById(elementId)!
