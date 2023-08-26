@@ -1,36 +1,90 @@
-<ion-title class="ion-padding-top ion-text-center">
+<!-- <ion-title class="ion-padding-top ion-text-center">
     <ion-label>
       <h1>Bienvenido!</h1>
     </ion-label>
-  </ion-title>
-  <!-- <div *ngIf="username" class="">Usuario: {{username}}</div> -->
-  <!-- <b class="" >
+  </ion-title> -->
+<!-- <div *ngIf="username" class="">Usuario: {{username}}</div> -->
+<!-- <b class="" >
     <h4></h4>
   </b> -->
 
-  <!-- <div id="title-l">
+<!-- <div id="title-l">
     Certificaciones
   </div> -->
 
-  <ion-content>
-    <h1 id="title-l" class="title">Título de la página</h1>
-  </ion-content>
+<div class="">
+  <div>
+    <div class="text-center text-2xl">Bienvenido!</div>
+    <div id="title-l" class="text-xl">Certificaciones</div>
+  </div>
 
-<div class="container">
-  <ion-item class="mb-4">
-      <ion-label>Nombre del Certificado</ion-label>
-      <ion-input type="text" [(ngModel)]="certification.name"></ion-input>
-  </ion-item>
-  <ion-item class="mb-4">
-      <ion-label>Fecha de Obtención</ion-label>
-      <ion-input type="date" [(ngModel)]="certification.obtainmentDate"></ion-input>
-  </ion-item>
-  <ion-item class="mb-4">
-      <ion-label>¿El certificado vence?</ion-label>
-      <ion-checkbox [(ngModel)]="certification.expires"></ion-checkbox>
-  </ion-item>
-  <ion-item *ngIf="certification.expires" class="mb-4">
-      <ion-label>Fecha de Vencimiento</ion-label>
-      <ion-input type="date" [(ngModel)]="certification.expiryDate"></ion-input>
-  </ion-item>
+  <!-- bg-blue-500 -->
+  <div
+      class="flex justify-center flex-col items-center px-4 lg:px-72"
+  >
+    <div class="w-full">
+      <ion-item class="mb-4 w-full" id="certificationNameItem">
+        <ion-label>Nombre del Certificado</ion-label>
+        <!-- (click)="animateInput('certificationNameItem')" -->
+        <ion-input
+          type="text"
+          [(ngModel)]="certification.name"
+          
+        ></ion-input>
+      </ion-item>
+    </div>
+    <div class="w-full">
+      <ion-item class="mb-4 w-full" id="certificationObtainmentDateItem">
+        <ion-label>Fecha de Obtención</ion-label>
+        <ion-input
+          type="date"
+          [(ngModel)]="certification.obtainmentDate"
+        ></ion-input>
+      </ion-item>
+    </div>
+    <div class="w-full">
+      <ion-item class="mb-4 w-full" id="certificationExpiresItem">
+        <ion-label class="pr-2">¿El certificado vence?</ion-label>
+        <ion-checkbox [(ngModel)]="certification.expires"></ion-checkbox>
+      </ion-item>
+    </div>
+    <div class="w-full">
+      <ion-item
+        class="mb-4 w-full"
+        id="certificationExpiryDateItem"
+        *ngIf="certification.expires"
+      >
+        <ion-label>Fecha de Vencimiento</ion-label>
+        <!-- <ion-input
+          type="date"
+          [(ngModel)]="certification.expiryDate"
+        ></ion-input> -->
+        <div class="light-theme-container">
+          <mat-form-field>
+            <mat-label>Choose a date</mat-label>
+            <input matInput [matDatepicker]="picker">
+            <mat-hint>MM/DD/YYYY</mat-hint>
+            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+        </div>
+       
+      </ion-item>
+    </div>
+
+    <ion-grid>
+      <ion-row>
+        <ion-col col-6>
+          <ion-button shape="block"  color="secondary" (click)="clearInputs()">
+            Limpiar
+          </ion-button>
+        </ion-col>
+        <ion-col col-6>
+          <ion-button shape="block"  (click)="frenchLocale()">
+            Guardar
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
 </div>

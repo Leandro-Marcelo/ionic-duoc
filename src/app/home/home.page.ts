@@ -45,7 +45,7 @@ export class HomePage {
   constructor(public alertController: AlertController, private route: ActivatedRoute) {
   }
 
-  selectedSegment: string = 'experiencia-laboral';
+  selectedSegment: string = 'certificaciones';
 
   // segmentChanged(event) {
   //   // ... tu código aquí ...

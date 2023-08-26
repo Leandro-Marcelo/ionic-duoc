@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Animation, AnimationController, createAnimation } from '@ionic/angular';
+import { CertificationForm } from 'src/app/utils/interfacesAndTypes';
+import { DateAdapter } from '@angular/material/core'; 
 
 @Component({
   selector: 'app-certificaciones',
@@ -8,14 +10,22 @@ import { Animation, AnimationController, createAnimation } from '@ionic/angular'
 })
 export class CertificacionesComponent  implements OnInit {
 
-  certification = {
+  certificationReset: CertificationForm = {
     name: '',
     obtainmentDate: '',
     expires: false,
     expiryDate: ''
-  };
+  }
 
-  constructor(private animationCtrl: AnimationController) { }
+  arrInputs = ["certificationNameItem", "certificationObtainmentDateItem", "certificationExpiryDateItem", "certificationExpiresItem"]
+
+  certification: CertificationForm = {...this.certificationReset}
+
+  constructor(private animationCtrl: AnimationController, private dateAdapter: DateAdapter<any>) { }
+
+  frenchLocale() {
+    this.dateAdapter.setLocale('es-ES');
+  } 
 
   ngOnInit() {
     this.animateTitle();
@@ -88,5 +98,36 @@ export class CertificacionesComponent  implements OnInit {
       ]);
 
     titleAnimation.play();
+  }
+
+  animateInput(elementId: string) {
+    const inputEl = document.getElementById(elementId)!
+    console.log(inputEl)
+
+    const inputAnimation: Animation = createAnimation()
+      .addElement(inputEl)
+      .duration(1000)
+      .keyframes([
+        { offset: 0, transform: 'translateX(0)' },
+        { offset: 0.2, transform: 'translateX(-7%)' },
+        { offset: 0.5, transform: 'translateX(0)' },
+        { offset: 0.7, transform: 'translateX(7%)' },
+        { offset: 1, transform: 'translateX(0)' },
+      ]);
+  
+    inputAnimation.play();
+  }
+
+  clearInputs() {
+    this.certification = {...this.certificationReset}
+    const certificationExpiresItemTag = document.getElementById("certificationExpiresItem");
+    this.arrInputs.forEach(input => {
+      if (input == "certificationExpiresItem" && certificationExpiresItemTag === null) {
+        return
+      }
+
+      this.animateInput(input)
+    })
+    
   }
 }

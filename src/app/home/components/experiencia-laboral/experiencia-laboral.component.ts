@@ -1,6 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { createAnimation } from '@ionic/angular';
 
+interface Experience {
+  company: string;
+  startYear: string;
+  currentlyWorking: boolean;
+  endYear: string;
+  position: string;
+}
+
 @Component({
   selector: 'app-experiencia-laboral',
   templateUrl: './experiencia-laboral.component.html',
@@ -8,20 +16,20 @@ import { createAnimation } from '@ionic/angular';
 })
 export class ExperienciaLaboralComponent  implements OnInit {
 
-  experience = {
+  experienceReset: Experience = {
     company: '',
     startYear: '',
     currentlyWorking: false,
     endYear: '',
     position: ''
-};
+  }
+
+  experience: Experience = {...this.experienceReset};
 
   constructor() { }
 
   titleAnimation() {
     const titleTag = document.getElementById("title-l")!
-
-    console.log(titleTag)
 
     const animation = createAnimation()
       .addElement(titleTag)
@@ -42,6 +50,10 @@ export class ExperienciaLaboralComponent  implements OnInit {
 
   runAnimation() {
     this.titleAnimation();
+  }
+
+  clear() {
+    this.experience = {...this.experienceReset}
   }
 
 }

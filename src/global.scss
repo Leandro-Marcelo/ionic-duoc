@@ -24,3 +24,22 @@
 @import "@ionic/angular/css/text-alignment.css";
 @import "@ionic/angular/css/text-transformation.css";
 @import "@ionic/angular/css/flex-utils.css";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import '@angular/material/theming';
+
+$light-theme: mat-light-theme(
+  $primary: mat-palette($mat-indigo),
+  $accent: mat-palette($mat-pink),
+  $warn: mat-palette($mat-red),
+);
+
+// @include mat-core();
+@include angular-material-theme($light-theme);
+
+// .light-theme-container {
+//     @include angular-material-theme($light-theme);
+//   }

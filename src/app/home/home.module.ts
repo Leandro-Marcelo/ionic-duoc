@@ -8,6 +8,11 @@ import { HomePageRoutingModule } from './home-routing.module';
 import { ExperienciaLaboralComponent } from './components/experiencia-laboral/experiencia-laboral.component';
 import { CertificacionesComponent } from './components/certificaciones/certificaciones.component';
 import { MisDatosComponent } from './components/mis-datos/mis-datos.component';
+import {MatNativeDateModule} from '@angular/material/core';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MAT_DATE_LOCALE } from '@angular/material/core';
 
 
 @NgModule({
@@ -15,7 +20,11 @@ import { MisDatosComponent } from './components/mis-datos/mis-datos.component';
     CommonModule,
     FormsModule,
     IonicModule,
-    HomePageRoutingModule
+    HomePageRoutingModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatFormFieldModule,
+    MatInputModule
   ],
   declarations: [
     HomePage,
@@ -23,6 +32,12 @@ import { MisDatosComponent } from './components/mis-datos/mis-datos.component';
     CertificacionesComponent,
     MisDatosComponent
 
+],
+providers: [
+  {
+    provide: MAT_DATE_LOCALE,
+    useValue: 'es-ES'
+  }
 ]
 })
 export class HomePageModule {}
