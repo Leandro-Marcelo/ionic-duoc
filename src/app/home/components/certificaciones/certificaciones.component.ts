@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Animation, AnimationController, createAnimation } from '@ionic/angular';
 import { CertificationForm } from 'src/app/utils/interfacesAndTypes';
 import { DateAdapter } from '@angular/material/core'; 
+import { FormControl, FormGroup } from '@angular/forms';
+
 
 @Component({
   selector: 'app-certificaciones',
@@ -10,14 +12,25 @@ import { DateAdapter } from '@angular/material/core';
 })
 export class CertificacionesComponent  implements OnInit {
 
+  ShiftForm: FormGroup = new FormGroup({
+    startingDate: new FormControl(),
+    startTime: new FormControl(),
+    endingDate: new FormControl(),
+    endTime: new FormControl(),
+  });
+
   certificationReset: CertificationForm = {
     name: '',
     obtainmentDate: '',
     expires: false,
-    expiryDate: ''
+    expiryDate: '',
+    testData: null
   }
 
-  arrInputs = ["certificationNameItem", "certificationObtainmentDateItem", "certificationExpiryDateItem", "certificationExpiresItem"]
+  testData: any = new Date();
+
+  //arrInputs = ["certificationNameItem", "certificationObtainmentDateItem", "certificationExpiryDateItem", "certificationExpiresItem"]
+  arrInputs = ["certificationNameItem"]
 
   certification: CertificationForm = {...this.certificationReset}
 
@@ -27,7 +40,17 @@ export class CertificacionesComponent  implements OnInit {
     this.dateAdapter.setLocale('es-ES');
   } 
 
+
+  start: any = new Date();
+  startDate =  "1/1/2018"
+  endDate = "1/1/2020"
   ngOnInit() {
+    // this.ShiftForm = new FormGroup({
+    //   startingDate: new FormControl(this.startDate),
+    //   startTime: new FormControl(),
+    //   endingDate: new FormControl(this.endDate),
+    //   endTime: new FormControl(),
+    // });
     this.animateTitle();
   }
 
@@ -129,5 +152,9 @@ export class CertificacionesComponent  implements OnInit {
       this.animateInput(input)
     })
     
+  }
+
+  testing() {
+    console.log("hello world")
   }
 }

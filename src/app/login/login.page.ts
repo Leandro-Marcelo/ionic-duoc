@@ -1,15 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { NavController, ToastController } from '@ionic/angular';
 import { z } from 'zod';
-import { AuthService } from '../auth.service';
+import { AuthService } from '../services/auth/auth.service';
+import { StorageService } from '../services/storage/storage.service';
 
 const loginSchema = z.object({
-  username: z.string().min(3).max(8),
+  email: z.string().email(),
   password: z.string().regex(/^\d{4}$/),
 });
 
 interface LoginForm {
-  username: string;
+  email: string;
   password: string;
 }
 
@@ -20,49 +21,62 @@ interface LoginForm {
 })
 export class LoginPage implements OnInit {
   loginForm: LoginForm = {
-    username: 'lean',
+    email: 'leandro123@gmail.com',
     password: '1234',
   };
 
-  isAuthenticated = ""
+  isAuthenticated = '';
 
-  constructor(public toastController: ToastController, private navCtrl: NavController, private authService: AuthService ) {}
+  constructor(
+    public toastController: ToastController,
+    private navCtrl: NavController,
+    private authService: AuthService,
+    private storageService: StorageService
+  ) {}
 
-  ngOnInit() {
-    this.isAuthenticated = this.authService.isLoggedIn ? "true" : "false"
+  async ngOnInit() {
+    const authJwt: any = await this.storageService.getStorage('authJwt');
+
+    console.log(`authJwt`);
+    console.log(authJwt);
+    if (authJwt) {
+      const parsedAuthJwt = JSON.parse(authJwt.value);
+      this.goToHome(parsedAuthJwt.name);
+    }
   }
 
-  login() {
+  async login() {
     try {
       const validatedData = loginSchema.parse(this.loginForm);
-      console.log(validatedData)
-      this.presentToast('Welcome');
+      console.log(validatedData);
+      //this.presentToast('Welcome');
 
-      this.authService.login();
+      const foundUser = await this.authService.login(
+        this.loginForm.email,
+        this.loginForm.password
+      );
 
-
-
-      this.navCtrl.navigateForward('/home', {
-        queryParams: {
-          username: this.loginForm.username
-        }
-      });
+      if (foundUser) {
+        this.goToHome(foundUser.name);
+      } else {
+        this.presentToast('Credenciales Invalidas');
+      }
     } catch (error: any) {
-      let errorMsg = ""
-      console.log(error)
-      console.log(JSON.stringify(error))
+      let errorMsg = '';
+      console.log(error);
+      console.log(JSON.stringify(error));
       if (error.issues && error.issues.length >= 1) {
-        error.issues.forEach((issue:any) => {
+        error.issues.forEach((issue: any) => {
           issue.path.forEach((p: any) => {
-            if (p == "username") {
-              errorMsg += `el usuario debe ser una cadena alfanumérica de un largo máximo de 8 y mínimo 3 caracteres. `
-            }
+            // if (p == 'username') {
+            //   errorMsg += `el usuario debe ser una cadena alfanumérica de un largo máximo de 8 y mínimo 3 caracteres. `;
+            // }
 
-            if (p == "password") {
-              errorMsg += `la password debe ser numérica de 4 dígitos`
+            if (p == 'password') {
+              errorMsg += `la password debe ser numérica de 4 dígitos`;
             }
-          })
-        })
+          });
+        });
       }
 
       this.presentToast(errorMsg);
@@ -75,5 +89,13 @@ export class LoginPage implements OnInit {
       duration: duration ? duration : 2000,
     });
     toast.present();
+  }
+
+  goToHome(name: string) {
+    this.navCtrl.navigateForward('/home', {
+      queryParams: {
+        name,
+      },
+    });
   }
 }

@@ -1,7 +1,9 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, WritableSignal, effect } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 import { PluginListenerHandle } from '@capacitor/core';
 import { ConnectionStatus, Network } from '@capacitor/network';
 import { Toast } from '@capacitor/toast';
+import { DatabaseService, User } from 'src/app/services/database.service';
 
 @Component({
   selector: 'app-network',
@@ -13,7 +15,46 @@ export class NetworkPage implements OnInit, OnDestroy {
   networkListener: PluginListenerHandle | null = null;
   status: ConnectionStatus | null = null;
 
-  constructor() { }
+  userForm: FormGroup = new FormGroup({
+    name: new FormControl(),
+    active: new FormControl()
+  })
+
+  initForm() {
+    this.userForm = new FormGroup({
+      name: new FormControl(''),
+      active: new FormControl(false)
+    });
+  }
+
+
+  users = this.database.getUsers();
+  constructor(private database: DatabaseService) { 
+    effect(()=> {
+      console.log("USERS CHANGE", this.users())
+    })
+
+    this.initForm();
+  }
+
+  // CRUD OPERATION
+  async createUser(name: string, active: string) {
+    await this.database.createUser(name, active);
+  }
+
+  async updateUser(user: User) {
+    await this.database.updateUser(user);
+  }
+
+  async deleteUser(user: User) {
+    await this.database.deleteUser(user);
+  }
+
+  async handleSubmit() {
+    const { name, active } = this.userForm.value;
+    await this.createUser(name, active);
+    this.userForm.reset();
+  }
  
 
   async ngOnInit() {

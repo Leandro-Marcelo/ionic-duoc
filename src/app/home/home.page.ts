@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { AlertController } from '@ionic/angular';
+import { AlertController, NavController } from '@ionic/angular';
 import { CertificacionesComponent } from './components/certificaciones/certificaciones.component';
 import { createAnimation } from '@ionic/core';
+import { AuthService } from '../services/auth/auth.service';
 
 
 interface EducationLevel {
@@ -42,7 +43,7 @@ export class HomePage {
   userInfo: UserInfo = {...this.userInfoReset}
 
   username: string = ""
-  constructor(public alertController: AlertController, private route: ActivatedRoute) {
+  constructor(public alertController: AlertController, private route: ActivatedRoute, private authService: AuthService, private navController: NavController) {
   }
 
   selectedSegment: string = 'certificaciones';
@@ -54,6 +55,11 @@ export class HomePage {
   // }
 
 segmentChanged(event: any) {
+  if (event.detail.value === 'logout') {
+    this.handleLogout();
+    return;
+  }
+
   this.selectedSegment = event.detail.value;
   
 }
@@ -85,5 +91,11 @@ segmentChanged(event: any) {
     });
 
     await alert.present();
+  }
+
+  handleLogout() {
+    console.log("handleLOGOTGHUA")
+    this.authService.logout();
+    this.navController.navigateForward('/login')
   }
 }

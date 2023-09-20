@@ -6,4 +6,27 @@
     <p *ngIf="status !== null">{{ status.connected ? "Device online" : "Device offline"}}</p>
     <p>diasjdaiji</p>
   </div>
+
+  <!-- create form to create a user -->
+  <form [formGroup]="userForm" (ngSubmit)="handleSubmit()">
+    <ion-item>
+      <ion-label>Name</ion-label>
+      <ion-input type="text" formControlName="name"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Active</ion-label>
+      <ion-checkbox formControlName="active"></ion-checkbox>
+    </ion-item>
+    <ion-button type="submit" [disabled]="!userForm.valid">Create</ion-button>
+  </form>
+
+  <ion-item *ngFor="let user of users()">
+    <ion-checkbox [(ngModel)]="user.active" (ionChange)="updateUser(user)" slot="start" aria-label="Label" >
+        
+    </ion-checkbox>
+    <ion-label>{{user.name}}</ion-label>
+    <ion-button (click)="deleteUser(user)" slot="end" fill="clear">
+      <ion-icon name="trash"></ion-icon>
+    </ion-button>
+  </ion-item>
 </div>

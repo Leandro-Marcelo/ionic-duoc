@@ -1,5 +1,5 @@
 build:
-	rm -rf dist
+	rm -rf www
 	rm -rf ios
 	rm -rf android
 	ionic build
@@ -10,8 +10,8 @@ open: build
 	ionic cap open ios
 	ionic cap open android
 
-run: open
+start: open
 	ionic serve --port 3000
 
-run-dev:
+start-dev:
 	ionic serve --port 3000

@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
-import { AuthGuard } from './auth.guard';
+import { AuthGuard } from './guard/auth.guard';
 
 const routes: Routes = [
   // {
@@ -10,39 +10,48 @@ const routes: Routes = [
   {
     path: '',
     redirectTo: 'login',
-    pathMatch: 'full'
+    pathMatch: 'full',
   },
   {
     path: 'login',
-    loadChildren: () => import('./login/login.module').then( m => m.LoginPageModule),
+    loadChildren: () =>
+      import('./login/login.module').then((m) => m.LoginPageModule),
   },
-  
-  { path: 'home', loadChildren: () => import('./home/home.module').then( m => m.HomePageModule), canActivate: [AuthGuard] },
+
+  {
+    path: 'home',
+    loadChildren: () =>
+      import('./home/home.module').then((m) => m.HomePageModule),
+      canLoad: [AuthGuard]
+  },
 
   {
     path: 'contacto',
-    loadChildren: () => import('./contact/contact.module').then( m => m.ContactPageModule),
+    loadChildren: () =>
+      import('./contact/contact.module').then((m) => m.ContactPageModule),
   },
   {
     path: 'contact',
-    loadChildren: () => import('./contact/contact.module').then( m => m.ContactPageModule),
+    loadChildren: () =>
+      import('./contact/contact.module').then((m) => m.ContactPageModule),
   },
-  
   {
     path: 'notfound',
-    loadChildren: () => import('./notfound/notfound.module').then( m => m.NotfoundPageModule),
+    loadChildren: () =>
+      import('./notfound/notfound.module').then((m) => m.NotfoundPageModule),
   },
   { path: '**', redirectTo: 'notfound' },
   {
     path: 'contact',
-    loadChildren: () => import('./contact/contact.module').then( m => m.ContactPageModule)
-  }
+    loadChildren: () =>
+      import('./contact/contact.module').then((m) => m.ContactPageModule),
+  },
 ];
 
 @NgModule({
   imports: [
-    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })
+    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules }),
   ],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}
