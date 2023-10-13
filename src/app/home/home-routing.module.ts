@@ -7,10 +7,10 @@ const routes: Routes = [
     path: '',
     component: HomePage,
   },
-  {
-    path: 'network',
-    loadChildren: () => import('./network/network.module').then( m => m.NetworkPageModule)
-  }
+  // {
+  //   path: 'network',
+  //   loadChildren: () => import('./network/network.module').then( m => m.NetworkPageModule)
+  // }
 ];
 
 @NgModule({

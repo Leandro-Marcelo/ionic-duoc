@@ -13,3 +13,16 @@ export interface User {
     phone: string;
     password: string;
 }
+
+export interface Post {
+    userId: string;
+    id: string;
+    title: string;
+    body: string;
+  }
+  
+
+export interface PostAction {
+    type: string;
+    payload: Post;
+}

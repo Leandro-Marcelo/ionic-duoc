@@ -4,23 +4,24 @@ import { ApiService } from '../api/api.service';
 import { User } from '../../utils/interfacesAndTypes';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
-
-  constructor(    private storage: StorageService,
-    private apiService: ApiService) { }
+  constructor(
+    private storage: StorageService,
+    private apiService: ApiService
+  ) {}
 
   async login(email: string, password: string) {
     try {
       const foundUser = await this.apiService.login(email, password);
-      const userData = JSON.stringify(foundUser)
+      const userData = JSON.stringify(foundUser);
       this.setUserData(userData);
 
       return foundUser;
-    } catch(e) {
-      console.log("USER NOT FOUND")
-      return
+    } catch (e) {
+      console.log('USER NOT FOUND');
+      return;
     }
   }
 
@@ -34,10 +35,15 @@ export class AuthService {
 
   async register(name: string, email: string, password: string, phone: string) {
     try {
-      const registeredUser = await this.apiService.signUp(name, email, password, phone);
+      const registeredUser = await this.apiService.signUp(
+        name,
+        email,
+        password,
+        phone
+      );
       await this.setUserData(JSON.stringify(registeredUser));
-    } catch(e) {
-      console.log("USER ALREADY EXISTS")
+    } catch (e) {
+      console.log('USER ALREADY EXISTS');
     }
   }
 
@@ -45,8 +51,8 @@ export class AuthService {
     try {
       //await this.fireAuth.signOut();
       return this.storage.removeStorage('authJwt');
-    } catch(e) {
-      throw(e);
+    } catch (e) {
+      throw e;
     }
   }
 }

@@ -39,6 +39,7 @@
     "ionicons": "^7.0.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
+    "uuid": "^9.0.1",
     "zod": "^3.22.1",
     "zone.js": "~0.13.0"
   },
@@ -57,6 +58,7 @@
     "@ionic/angular-toolkit": "^9.0.0",
     "@types/jasmine": "~4.3.0",
     "@types/node": "^12.11.1",
+    "@types/uuid": "^9.0.5",
     "@typescript-eslint/eslint-plugin": "5.3.0",
     "@typescript-eslint/parser": "5.3.0",
     "autoprefixer": "^10.4.15",

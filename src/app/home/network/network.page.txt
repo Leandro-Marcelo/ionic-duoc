@@ -3,7 +3,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { PluginListenerHandle } from '@capacitor/core';
 import { ConnectionStatus, Network } from '@capacitor/network';
 import { Toast } from '@capacitor/toast';
-import { DatabaseService, User } from 'src/app/services/database.service';
+//import { DatabaseService, User } from 'src/app/services/database.service';
 
 @Component({
   selector: 'app-network',

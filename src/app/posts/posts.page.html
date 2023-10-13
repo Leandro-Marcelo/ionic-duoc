@@ -1,0 +1,17 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Posts {{posts.length}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-button (click)="createPost()">Create Post</ion-button>
+  <div class="flex flex-col bottom-2 ">
+    <ion-item *ngFor="let post of posts" (click)="viewPost(post.id)">
+      <ion-label>
+        <h2>{{ post.title }}</h2>
+        <p>{{ post.body }}</p>
+      </ion-label>
+    </ion-item>
+  </div>
+</ion-content>

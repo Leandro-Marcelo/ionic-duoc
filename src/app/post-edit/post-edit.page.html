@@ -1,0 +1,27 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title *ngIf="!postId">Create Post</ion-title>
+    <ion-title *ngIf="postId">Edit Post</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form [formGroup]="postForm">
+    <ion-list>
+      <ion-item>
+        <ion-label position="floating">Title</ion-label>
+        <ion-input type="text" formControlName="title"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating">Body</ion-label>
+        <ion-textarea formControlName="body"></ion-textarea>
+      </ion-item>
+    </ion-list>
+
+    <ion-button expand="full" (click)="savePost()">
+      <span *ngIf="!postId">Create</span>
+      <span *ngIf="postId">Update</span> Post
+    </ion-button>
+  </form>
+</ion-content>

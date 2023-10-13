@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { DatabaseService } from './services/database.service';
+//import { DatabaseService } from './services/database.service';
 import { SplashScreen } from '@capacitor/splash-screen';
 
 @Component({
@@ -8,12 +8,13 @@ import { SplashScreen } from '@capacitor/splash-screen';
   styleUrls: ['app.component.scss'],
 })
 export class AppComponent {
-  constructor(private database: DatabaseService) {
+  // private database: DatabaseService
+  constructor() {
     this.initApp()
   }
 
   async initApp() {
-    await this.database.initializePlugin();
+    //await this.database.initializePlugin();
     SplashScreen.hide();
   }
 }

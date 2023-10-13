@@ -40,12 +40,24 @@ const routes: Routes = [
     loadChildren: () =>
       import('./notfound/notfound.module').then((m) => m.NotfoundPageModule),
   },
-  { path: '**', redirectTo: 'notfound' },
   {
     path: 'contact',
     loadChildren: () =>
       import('./contact/contact.module').then((m) => m.ContactPageModule),
   },
+  {
+    path: 'posts',
+    loadChildren: () => import('./posts/posts.module').then( m => m.PostsPageModule)
+  },
+  {
+    path: 'post-edit',
+    loadChildren: () => import('./post-edit/post-edit.module').then( m => m.PostEditPageModule)
+  },
+  {
+    path: 'post-edit/:id',
+    loadChildren: () => import('./post-edit/post-edit.module').then(m => m.PostEditPageModule)
+  },
+  { path: '**', redirectTo: 'notfound' },
 ];
 
 @NgModule({
