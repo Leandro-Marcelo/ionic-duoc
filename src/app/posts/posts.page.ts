@@ -3,6 +3,7 @@ import { Post } from '../utils/interfacesAndTypes';
 import { PostsService } from '../services/posts/posts.service';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { StorePostService } from '../store/posts/store-post.service';
 
 @Component({
   selector: 'app-posts',
@@ -12,49 +13,35 @@ import { Subscription } from 'rxjs';
 export class PostsPage implements OnInit {
 
   posts: Post[] = [];
-  private postsSub: Subscription = new Subscription();
-  private createdOrUpdatedPostSub: Subscription = new Subscription();
 
-  constructor(private postsService: PostsService, private router: Router) { }
-
-  // ngOnInit() {
-  //   this.postService.getPosts().subscribe((posts) => {
-  //     this.posts = posts;
-  //   }, (err) => {
-  //     console.error('Error:', err);
-  //   });
-  // }
+  constructor(
+    private postsService: PostsService,
+    private storePost: StorePostService,
+    private router: Router
+  ) {}
 
   ngOnInit() {
-    // this.postsSub = this.postsService.postsUpdated$.subscribe((posts: Post[]) => {
-    //   this.posts = posts;
-    // });
-
-    this.createdOrUpdatedPostSub = this.postsService.createdOrUpdatedPost$.subscribe((action) => {
-      if (action.type === 'create') {
-        this.posts = [action.payload, ...this.posts];
-      } else if (action.type === 'update') {
-        this.posts = this.posts.filter(post => post.id !== action.payload.id);
+    this.postsService.getPosts().subscribe(
+      (posts) => {
+        this.storePost.setPosts(posts);
+      },
+      (err) => {
+        console.error('Error:', err);
       }
-    });
+    );
 
-    // Carga inicial de los posts
-    this.postsService.getPosts().subscribe(posts => {
+    this.storePost.posts$.subscribe(posts => {
       this.posts = posts;
-      this.postsService.updatePostsList(posts);
     });
   }
 
-  ngOnDestroy() {
-    this.postsSub.unsubscribe();
-  }
+  ngOnDestroy() {}
 
   createPost() {
     this.router.navigate(['/post-edit']);
   }
-  
+
   viewPost(id: string) {
     this.router.navigate(['/post-edit', id]);
   }
-
 }

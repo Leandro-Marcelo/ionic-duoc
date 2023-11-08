@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { PostsService } from '../services/posts/posts.service';
 import { Post } from '../utils/interfacesAndTypes';
+import { StorePostService } from '../store/posts/store-post.service';
 
 @Component({
   selector: 'app-post-edit',
@@ -11,69 +12,81 @@ import { Post } from '../utils/interfacesAndTypes';
 })
 export class PostEditPage implements OnInit {
 
-  postForm: FormGroup;
-  postId: string = "";
+  postId = '';
 
-  postSelected: Post = {
+  postForm: FormGroup;
+
+  posts: Post[] = [];
+
+  postsSelected: Post = {
     body: "",
-    id: "",
+    id:"",
     title: "",
-    userId: ""
+    userId:""
   }
 
   constructor(
     private postsService: PostsService,
+    private storePost: StorePostService,
     private route: ActivatedRoute,
     private router: Router,
     private fb: FormBuilder
   ) { 
     this.postForm = this.fb.group({
-      userId: [1, [Validators.required]],
-      title: ['', [Validators.required, Validators.maxLength(50)]],
-      body: ['', [Validators.required, Validators.maxLength(500)]]
+      title: ['', [Validators.required]],
+      body: ['', [Validators.required]]
     });
   }
 
   ngOnInit() {
+
+    this.storePost.posts$.subscribe(posts => {
+      this.posts = posts;
+    });
+
     this.postId = this.route.snapshot.params['id'];
     if (this.postId) {
-      this.postsService.getPostById(this.postId).subscribe(data => {
-        this.postForm.setValue({
-          userId: data.userId,
-          title: data.title,
-          body: data.body
-        });
+      const foundPost = this.posts.find((post) => post.id === this.postId);
+
+      if (foundPost === undefined) {
+        this.router.navigate(['/posts']);
+        return;
+      }
+
+      console.log("FOUND POST")
+      console.log(foundPost)
+
+      this.postsSelected = foundPost;
+      this.postForm.setValue({
+        title: foundPost.title,
+        body: foundPost.body
       });
     }
+
+
+
   }
 
   savePost() {
+    console.log("ME EJECUTO")
+    console.log("this.postForm.valid", this.postForm.valid)
+    console.log("this.postForm.value", this.postForm.value)
     if (this.postForm.valid) {
       const postData: Post = this.postForm.value;
       if (this.postId) {
-
         this.postsService.updatePostById(this.postId, postData).subscribe((_) => {
+          const updatedPost: Post = {...this.postsSelected, ...postData}
+          this.storePost.updatePost(this.postId, updatedPost);
           this.router.navigate(['/posts']);
-          // Obtener la lista actualizada y notificar el cambio
-          //this.updateAndEmitPosts();
-          const updatedPost: Post = {...postData, id: this.postId}
-          this.postsService.sendCreatedOrUpdatedPost({ type: 'update', payload: updatedPost });
+
         });
       } else {
         this.postsService.createPost(postData).subscribe((createdPost) => {
+          this.storePost.addPost(createdPost);
           this.router.navigate(['/posts']);
-          // Obtener la lista actualizada y notificar el cambio
-          //this.updateAndEmitPosts();
-          this.postsService.sendCreatedOrUpdatedPost({ type: 'create', payload: createdPost });
         });
       }
     }
   }
   
-  // private updateAndEmitPosts() {
-  //   this.postsService.getPosts().subscribe(posts => {
-  //     this.postsService.updatePostsList(posts);
-  //   });
-  // }
-
 }

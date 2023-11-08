@@ -62,7 +62,7 @@ export class PostsService {
   }
 
   getPostById(id: string): Observable<Post> {
-    return this.httpClient.get<Post>(`${this.baseUrl}/posts/${id}`, this.httpOptions)
+    return this.httpClient.get<Post>(`${this.baseUrl}/posts/1`, this.httpOptions)
       .pipe(
         retry(2),
         map((foundPost) => {
@@ -73,7 +73,7 @@ export class PostsService {
   }
 
   updatePostById(id: string, data: Post): Observable<Post> {
-    return this.httpClient.put<Post>(`${this.baseUrl}/posts/${id}`, data, this.httpOptions)
+    return this.httpClient.put<Post>(`${this.baseUrl}/posts/1`, data, this.httpOptions)
       .pipe(
         retry(2),
         map((updatedPost) => {
